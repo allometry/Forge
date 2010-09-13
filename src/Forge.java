@@ -10,6 +10,7 @@ import org.rsbot.event.events.ServerMessageEvent;
 import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.event.listeners.ServerMessageListener;
 import org.rsbot.script.Script;
+import org.rsbot.script.ScriptManifest;
 import org.rsbot.script.wrappers.RSInterfaceChild;
 import org.rsbot.script.wrappers.RSTile;
 import org.xml.sax.Attributes;
@@ -19,6 +20,21 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+@ScriptManifest(authors = { "Allometry" }, category = "Smithing", name = "Forge", version = 0.1,
+		description = "" +
+				"<html>" +
+				"<head>" +
+				"<style type=\"text/css\">" +
+				"body {background: #000 url(http://scripts.allometry.com/app/webroot/img/gui/window.jpg);" +
+				"font-family: Georgia, 'Times New Roman', Times, serif;" +
+				"font-size: 12px;font-weight: normal;" +
+				"padding: 50px 10px 45px 10px;}" +
+				"</style>" +
+				"</head>" +
+				"<body>" +
+				"<p style=\"text-align: center;\"><h1>Forge</h1><br />Bar Smelting by Allometry</p>" +
+				"</body>" +
+				"</html>")
 public class Forge extends Script implements PaintListener, ServerMessageListener {
 	private Bars bars = new Bars();
 	private Locations locations = new Locations();
@@ -44,7 +60,7 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 		ForgeGUI forgeGUI = new ForgeGUI(bars.bars.toArray(), locations.locations.toArray());
 		forgeGUI.setVisible(true);
 		
-		while(forgeGUI.isVisible()) {}
+		while(!forgeGUI.didStart) { if(true); }
 		
 		return false;
 	}
@@ -159,6 +175,7 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 	    private javax.swing.JLabel barLabel;
 	    private javax.swing.JComboBox locationsComboBox;
 	    private javax.swing.JButton startButton;
+	    public boolean didStart = false;
 	    
 	    public ForgeGUI(Object[] bars, Object[] locations) {
 	        initComponents(bars, locations);
@@ -171,7 +188,7 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 	        locationsComboBox = new javax.swing.JComboBox();
 	        startButton = new javax.swing.JButton();
 
-	        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+	        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 	        setTitle("Forge");
 	        setPreferredSize(new java.awt.Dimension(400, 200));
 	        setResizable(false);
@@ -202,7 +219,7 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 	        startButton.setText("Start");
 	        startButton.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent event) {
-	                
+	                didStart = true;
 	            }
 	        });
 	        getContentPane().add(startButton);

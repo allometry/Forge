@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bars>
+	<bar>
+		<childInterfaceID>1</childInterfaceID>
+		<parentInterfaceID>1</parentInterfaceID>
+		<name>Bronze Bar</name>
+	</bar>
+	<bar>
+		<childInterfaceID>1</childInterfaceID>
+		<parentInterfaceID>1</parentInterfaceID>
+		<name>Blurite Bar</name>
+	</bar>
+	<bar>
+		<childInterfaceID>1</childInterfaceID>
+		<parentInterfaceID>1</parentInterfaceID>
+		<name>Iron Bar</name>
+	</bar>
+	<bar>
+		<childInterfaceID>1</childInterfaceID>
+		<parentInterfaceID>1</parentInterfaceID>
+		<name>Elemental Bar</name>
+	</bar>
+	<bar>
+		<childInterfaceID>1</childInterfaceID>
+		<parentInterfaceID>1</parentInterfaceID>
+		<name>Silver Bar</name>
+	</bar>
+	<bar>
+		<childInterfaceID>1</childInterfaceID>
+		<parentInterfaceID>1</parentInterfaceID>
+		<name>Steel Bar</name>
+	</bar>
+	<bar>
+		<childInterfaceID>1</childInterfaceID>
+		<parentInterfaceID>1</parentInterfaceID>
+		<name>Gold Bar</name>
+	</bar>
+	<bar>
+		<childInterfaceID>1</childInterfaceID>
+		<parentInterfaceID>1</parentInterfaceID>
+		<name>Mithril Bar</name>
+	</bar>
+	<bar>
+		<childInterfaceID>1</childInterfaceID>
+		<parentInterfaceID>1</parentInterfaceID>
+		<name>Adamant Bar</name>
+	</bar>
+	<bar>
+		<childInterfaceID>1</childInterfaceID>
+		<parentInterfaceID>1</parentInterfaceID>
+		<name>Runite Bar</name>
+	</bar>
+</bars>

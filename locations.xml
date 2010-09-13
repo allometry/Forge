@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<locations>
+	<location>
+		<name>Edgeville</name>
+		<furnace tileX="1234" tileY="5678" id="1"/>
+		<bank tileX="9123" tileY="4567"/>
+	</location>
+</locations>
