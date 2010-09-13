@@ -22,7 +22,8 @@ import org.xml.sax.helpers.XMLReaderFactory;
 public class Forge extends Script implements PaintListener, ServerMessageListener {
 	private Bars bars = new Bars();
 	private Locations locations = new Locations();
-	private String barXMLLocation = "", locationXMLLocation = "";
+	private String barXMLLocation = "http://scripts.allometry.com/app/webroot/xml/bars.xml";
+	private String locationXMLLocation = "http://scripts.allometry.com/app/webroot/xml/locations.xml";
 	private XMLReader barReader, locationReader;
 	
 	@Override
@@ -106,7 +107,7 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 	 * <bars>
 	 *   <bar>
 	 *     <childInterfaceID>1</childInterfaceID>
-	 *     <parentInterfaceID>1</childInterfaceID>
+	 *     <parentInterfaceID>1</parentInterfaceID>
 	 *     <name>Bronze Bar</name>
 	 *   </bar>
 	 * </bars>
