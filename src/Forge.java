@@ -1,10 +1,21 @@
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import org.rsbot.event.events.ServerMessageEvent;
 import org.rsbot.event.listeners.PaintListener;
@@ -32,14 +43,16 @@ import org.xml.sax.helpers.XMLReaderFactory;
 				"</style>" +
 				"</head>" +
 				"<body>" +
-				"<p style=\"text-align: center;\"><h1>Forge</h1><br />Bar Smelting by Allometry</p>" +
+				"<p style=\"text-align: center;\"><strong>Forge</strong><br /><small>Bar Smelting by Allometry</small></p>" +
 				"</body>" +
 				"</html>")
 public class Forge extends Script implements PaintListener, ServerMessageListener {
+	private Bar bar;
 	private Bars bars = new Bars();
+	private Location location;
 	private Locations locations = new Locations();
-	private String barXMLLocation = "http://scripts.allometry.com/app/webroot/xml/bars.xml";
-	private String locationXMLLocation = "http://scripts.allometry.com/app/webroot/xml/locations.xml";
+	private String barXMLLocation = "http://github.com/allometry/Forge/raw/master/bars.xml";
+	private String locationXMLLocation = "http://github.com/allometry/Forge/raw/master/locations.xml";
 	private XMLReader barReader, locationReader;
 	
 	@Override
@@ -60,15 +73,31 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 		ForgeGUI forgeGUI = new ForgeGUI(bars.bars.toArray(), locations.locations.toArray());
 		forgeGUI.setVisible(true);
 		
-		while(!forgeGUI.didStart) { if(true); }
+		while(!forgeGUI.didStart) {}
 		
-		return false;
+		if(forgeGUI.didStart) {
+			bar = (Bar)forgeGUI.barsComboBox.getSelectedItem();
+			location = (Location)forgeGUI.locationsComboBox.getSelectedItem();
+			
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	@Override
 	public int loop() {
-		// TODO Auto-generated method stub
-		return 0;
+		if(isInventoryFull() && !inventoryContains(bar.getID())) {
+			//TODO goto furnace and smelt...
+		} else {
+			//TODO goto bank and bank...
+		}
+		
+		if(!isInventoryFull()) {
+			//TODO goto bank
+		}
+		
+		return 1;
 	}
 	
 	@Override
@@ -90,8 +119,26 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 	 * @version 1.0
 	 */
 	private class Bar {
+		private int id;
+		private ArrayList<Resource> resources;
 		private RSInterfaceChild barInterface;
 		private String name;
+		
+		public int getID() {
+			return id;
+		}
+		
+		public void setID(int id) {
+			this.id = id;
+		}
+		
+		public ArrayList<Resource> getResources() {
+			return resources;
+		}
+
+		public void setResources(ArrayList<Resource> resources) {
+			this.resources = resources;
+		}
 		
 		public RSInterfaceChild getBarInterface() {
 			return barInterface;
@@ -140,6 +187,10 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 		public void startElement(String uri, String name, String qName, Attributes atts) {
 			if(!name.equalsIgnoreCase("bar"))
 				currentElement = name;
+			else if(name.equalsIgnoreCase("name"))
+				bar.setID(Integer.parseInt(atts.getValue("id")));
+			else if(name.equalsIgnoreCase("resource"))
+				bar.getResources().add(new Resource(Integer.parseInt(atts.getValue("id")), Integer.parseInt(atts.getValue("quantity"))));
 			else
 				bar = new Bar();
 		}
@@ -169,64 +220,69 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 		}
 	}
 
-	private class ForgeGUI extends javax.swing.JFrame {
-		private javax.swing.JLabel furnaceLabel;
-	    private javax.swing.JComboBox furnacesComboBox;
-	    private javax.swing.JLabel barLabel;
-	    private javax.swing.JComboBox locationsComboBox;
-	    private javax.swing.JButton startButton;
-	    public boolean didStart = false;
-	    
-	    public ForgeGUI(Object[] bars, Object[] locations) {
-	        initComponents(bars, locations);
-	    }
+	/**
+	 * Forge Graphical User Interface
+	 * 
+	 * Displays options for the Forge script.
+	 * 
+	 * @author allometry
+	 * @version 1.0
+	 */
+	public class ForgeGUI extends JFrame {
+		private static final long serialVersionUID = -419949261022901083L;
+		private JLabel barsLabel;
+		public JComboBox barsComboBox;
+		private JLabel locationsLabel;
+		public JComboBox locationsComboBox;
+		private JButton startButton;
+		public boolean didStart = false;
+		
+		public ForgeGUI(Object[] bars, Object[] locations) {
+			initComponents(bars, locations);
+		}
 
-	    private void initComponents(Object[] bars, Object[] locations) {
-	        furnaceLabel = new javax.swing.JLabel();
-	        furnacesComboBox = new javax.swing.JComboBox();
-	        barLabel = new javax.swing.JLabel();
-	        locationsComboBox = new javax.swing.JComboBox();
-	        startButton = new javax.swing.JButton();
+		private void startButtonActionPerformed(ActionEvent e) {
+			didStart = true;
+			this.setVisible(false);
+		}
 
-	        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-	        setTitle("Forge");
-	        setPreferredSize(new java.awt.Dimension(400, 200));
-	        setResizable(false);
-	        setSize(new java.awt.Dimension(400, 200));
-	        getContentPane().setLayout(null);
+		private void initComponents(Object[] bars, Object[] locations) {
+			barsLabel = new JLabel();
+			barsComboBox = new JComboBox(bars);
+			locationsLabel = new JLabel();
+			locationsComboBox = new JComboBox(locations);
+			startButton = new JButton();
 
-	        furnaceLabel.setText("Select a Furnace");
-	        getContentPane().add(furnaceLabel);
-	        furnaceLabel.setBounds(20, 20, 360, 16);
-	        furnaceLabel.getAccessibleContext().setAccessibleDescription("Furnace Label");
+			setTitle("Forge");
+			Container contentPane = getContentPane();
+			contentPane.setLayout(null);
 
-	        furnacesComboBox.setModel(new javax.swing.DefaultComboBoxModel(locations));
-	        furnacesComboBox.setToolTipText("List of available furnaces...");
-	        getContentPane().add(furnacesComboBox);
-	        furnacesComboBox.setBounds(20, 40, 360, 27);
+			barsLabel.setText("Select a Bar to Smelt...");
+			contentPane.add(barsLabel);
+			barsLabel.setBounds(15, 15, 350, barsLabel.getPreferredSize().height);
+			contentPane.add(barsComboBox);
+			barsComboBox.setBounds(15, 35, 175, barsComboBox.getPreferredSize().height);
 
-	        barLabel.setText("Select a Bar");
-	        getContentPane().add(barLabel);
-	        barLabel.setBounds(20, 80, 360, 16);
-	        barLabel.getAccessibleContext().setAccessibleDescription("Bar Label");
+			locationsLabel.setText("Select a Furnace Location...");
+			contentPane.add(locationsLabel);
+			locationsLabel.setBounds(15, 70, 350, locationsLabel.getPreferredSize().height);
+			contentPane.add(locationsComboBox);
+			locationsComboBox.setBounds(15, 90, 175, locationsComboBox.getPreferredSize().height);
 
-	        locationsComboBox.setModel(new javax.swing.DefaultComboBoxModel(bars));
-	        locationsComboBox.setToolTipText("List of available bars to smelt...");
-	        getContentPane().add(locationsComboBox);
-	        locationsComboBox.setBounds(20, 100, 360, 27);
+			startButton.setText("Start");
+			startButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					startButtonActionPerformed(e);
+				}
+			});
+			contentPane.add(startButton);
+			startButton.setBounds(new Rectangle(new Point(280, 125), startButton.getPreferredSize()));
 
-	        startButton.setToolTipText("Start Forging...");
-	        startButton.setText("Start");
-	        startButton.addActionListener(new java.awt.event.ActionListener() {
-	            public void actionPerformed(java.awt.event.ActionEvent event) {
-	                didStart = true;
-	            }
-	        });
-	        getContentPane().add(startButton);
-	        startButton.setBounds(280, 140, 100, 29);
-
-	        pack();
-	    }                         
+			contentPane.setPreferredSize(new Dimension(380, 190));
+			setSize(380, 190);
+			setLocationRelativeTo(getOwner());
+		}
 	}
 	
 	/**
@@ -315,6 +371,43 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 				currentElement = "";
 				locations.add(location);
 			}
+		}
+	}
+	
+	/**
+	 * Resource Class
+	 * 
+	 * Defines a resource.
+	 * 
+	 * @author allometry
+	 * @version 1.0
+	 */
+	private class Resource {
+		private int id, quantity;
+
+		public Resource() {
+			
+		}
+		
+		public Resource(int id, int quantity) {
+			this.id = id;
+			this.quantity = quantity;
+		}
+		
+		public int getId() {
+			return id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
+		}
+
+		public int getQuantity() {
+			return quantity;
+		}
+
+		public void setQuantity(int quantity) {
+			this.quantity = quantity;
 		}
 	}
 }

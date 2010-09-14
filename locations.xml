@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <locations>
 	<location>
+		<name>Al-Kharid</name>
+		<furnace tileX="3110" tileY="3502" />
+		<bank tileX="3097" tileY="3496" />
+	</location>
+	<location>
 		<name>Edgeville</name>
+		<furnace tileX="3110" tileY="3502" />
+		<bank tileX="3097" tileY="3496" />
+	</location>
+	<location>
+		<name>Falador</name>
+		<furnace tileX="3110" tileY="3502" />
+		<bank tileX="3097" tileY="3496" />
+	</location>
+	<location>
+		<name>Neitiznot</name>
+		<furnace tileX="3110" tileY="3502" />
+		<bank tileX="3097" tileY="3496" />
+	</location>
+	<location>
+		<name>Port Phasmatys</name>
+		<furnace tileX="3110" tileY="3502" />
+		<bank tileX="3097" tileY="3496" />
+	</location>
+	<location>
+		<name>Shilo Village</name>
+		<furnace tileX="3110" tileY="3502" />
+		<bank tileX="3097" tileY="3496" />
+	</location>
+	<location>
+		<name>The TzHaar</name>
+		<furnace tileX="3110" tileY="3502" />
+		<bank tileX="3097" tileY="3496" />
+	</location>
+	<location>
+		<name>Zanaris</name>
 		<furnace tileX="3110" tileY="3502" />
 		<bank tileX="3097" tileY="3496" />
 	</location>
