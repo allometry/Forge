@@ -236,18 +236,9 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 	 * @version 1.0
 	 */
 	private class Location {
-		private int furnaceID;
 		private RSTile bankLocation;
 		private RSTile furnaceLocation;
 		private String name;
-
-		public int getFurnaceID() {
-			return furnaceID;
-		}
-		
-		public void setFurnaceID(int furnaceID) {
-			this.furnaceID = furnaceID;
-		}
 		
 		public RSTile getBankLocation() {
 			return bankLocation;
@@ -301,16 +292,14 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 		private ArrayList<Location> locations = new ArrayList<Location>();
 		
 		public void startElement(String uri, String name, String qName, Attributes atts) {
-			if(name.equalsIgnoreCase("location")) {
+			if(name.equalsIgnoreCase("location"))
 				location = new Location();
-			} else if(name.equalsIgnoreCase("furnace")) {
+			else if(name.equalsIgnoreCase("furnace"))
 				location.setFurnaceLocation(new RSTile(Integer.parseInt(atts.getValue("tileX")), Integer.parseInt(atts.getValue("tileY"))));
-				location.setFurnaceID(Integer.parseInt(atts.getValue("id")));
-			} else if(name.equalsIgnoreCase("bank")) {
+			else if(name.equalsIgnoreCase("bank"))
 				location.setBankLocation(new RSTile(Integer.parseInt(atts.getValue("tileX")), Integer.parseInt(atts.getValue("tileY"))));
-			} else {
+			else
 				currentElement = name;
-			}
 		}
 
 		public void characters(char chars[], int start, int length) {

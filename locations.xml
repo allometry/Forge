@@ -2,7 +2,7 @@
 <locations>
 	<location>
 		<name>Edgeville</name>
-		<furnace tileX="1234" tileY="5678" id="1"/>
-		<bank tileX="9123" tileY="4567"/>
+		<furnace tileX="3110" tileY="3502" />
+		<bank tileX="3097" tileY="3496" />
 	</location>
 </locations>

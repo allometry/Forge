@@ -1,53 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <bars>
 	<bar>
-		<childInterfaceID>1</childInterfaceID>
-		<parentInterfaceID>1</parentInterfaceID>
+		<childInterfaceID>12</childInterfaceID>
+		<parentInterfaceID>311</parentInterfaceID>
 		<name>Bronze Bar</name>
 	</bar>
 	<bar>
-		<childInterfaceID>1</childInterfaceID>
-		<parentInterfaceID>1</parentInterfaceID>
+		<childInterfaceID>16</childInterfaceID>
+		<parentInterfaceID>311</parentInterfaceID>
 		<name>Blurite Bar</name>
 	</bar>
 	<bar>
-		<childInterfaceID>1</childInterfaceID>
-		<parentInterfaceID>1</parentInterfaceID>
+		<childInterfaceID>20</childInterfaceID>
+		<parentInterfaceID>311</parentInterfaceID>
 		<name>Iron Bar</name>
 	</bar>
 	<bar>
-		<childInterfaceID>1</childInterfaceID>
-		<parentInterfaceID>1</parentInterfaceID>
-		<name>Elemental Bar</name>
-	</bar>
-	<bar>
-		<childInterfaceID>1</childInterfaceID>
-		<parentInterfaceID>1</parentInterfaceID>
+		<childInterfaceID>24</childInterfaceID>
+		<parentInterfaceID>311</parentInterfaceID>
 		<name>Silver Bar</name>
 	</bar>
 	<bar>
-		<childInterfaceID>1</childInterfaceID>
-		<parentInterfaceID>1</parentInterfaceID>
+		<childInterfaceID>28</childInterfaceID>
+		<parentInterfaceID>311</parentInterfaceID>
 		<name>Steel Bar</name>
 	</bar>
 	<bar>
-		<childInterfaceID>1</childInterfaceID>
-		<parentInterfaceID>1</parentInterfaceID>
+		<childInterfaceID>32</childInterfaceID>
+		<parentInterfaceID>311</parentInterfaceID>
 		<name>Gold Bar</name>
 	</bar>
 	<bar>
-		<childInterfaceID>1</childInterfaceID>
-		<parentInterfaceID>1</parentInterfaceID>
+		<childInterfaceID>36</childInterfaceID>
+		<parentInterfaceID>311</parentInterfaceID>
 		<name>Mithril Bar</name>
 	</bar>
 	<bar>
-		<childInterfaceID>1</childInterfaceID>
-		<parentInterfaceID>1</parentInterfaceID>
+		<childInterfaceID>40</childInterfaceID>
+		<parentInterfaceID>311</parentInterfaceID>
 		<name>Adamant Bar</name>
 	</bar>
 	<bar>
-		<childInterfaceID>1</childInterfaceID>
-		<parentInterfaceID>1</parentInterfaceID>
+		<childInterfaceID>44</childInterfaceID>
+		<parentInterfaceID>311</parentInterfaceID>
 		<name>Runite Bar</name>
 	</bar>
 </bars>
