@@ -138,6 +138,14 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 					}
 				}
 			} else {
+				/**
+				 * TODO bug 
+				 * @errorLevel show-stopper
+				 * @description this section of the script isn't working. I believe it is because the interface
+				 * that is generated within the XML needs to be reinitialized.
+				 * @date 14/10/2010
+				 * @foundBy allometry
+				 */
 				verbose("Smelt interface is valid...");
 				setTimeout(10);
 				do {
