@@ -38,7 +38,7 @@
 		<name>Steel Bar</name>
 		<parentInterfaceID>311</parentInterfaceID>
 		<resources>
-			<raw name="Iron ore" id="1234" quantity="9" />
+			<raw name="Iron ore" id="1234" quantity="-1" />
 			<raw name="Coal" id="4567" quantity="18" />
 		</resources>
 	</bar>
@@ -55,7 +55,7 @@
 		<name>Mithril Bar</name>
 		<parentInterfaceID>311</parentInterfaceID>
 		<resources>
-			<raw name="Mithril ore" id="1234" quantity="5" />
+			<raw name="Mithril ore" id="1234" quantity="-1" />
 			<raw name="Coal" id="4567" quantity="20" />
 		</resources>
 	</bar>
@@ -64,7 +64,7 @@
 		<name>Adamant Bar</name>
 		<parentInterfaceID>311</parentInterfaceID>
 		<resources>
-			<raw name="Adamant ore" id="1234" quantity="4" />
+			<raw name="Adamant ore" id="1234" quantity="-1" />
 			<raw name="Coal" id="4567" quantity="24" />
 		</resources>
 	</bar>
@@ -73,7 +73,7 @@
 		<name>Runite Bar</name>
 		<parentInterfaceID>311</parentInterfaceID>
 		<resources>
-			<raw name="Runite ore" id="1234" quantity="3" />
+			<raw name="Runite ore" id="1234" quantity="-1" />
 			<raw name="Coal" id="4567" quantity="24" />
 		</resources>
 	</bar>

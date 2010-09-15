@@ -2,41 +2,41 @@
 <locations>
 	<location>
 		<name>Al-Kharid</name>
-		<furnace tileX="3110" tileY="3502" />
-		<bank tileX="3097" tileY="3496" />
+		<furnace tileX="3273" tileY="3186" />
+		<bank tileX="3269" tileY="3167" />
 	</location>
 	<location>
-		<name>Edgeville</name>
+		<name>Edgeville (Members)</name>
 		<furnace tileX="3110" tileY="3502" />
 		<bank tileX="3097" tileY="3496" />
 	</location>
 	<location>
 		<name>Falador</name>
+		<furnace tileX="3273" tileY="3186" />
+		<bank tileX="3097" tileY="3496" />
+	</location>
+	<location>
+		<name>Neitiznot (Members)</name>
 		<furnace tileX="3110" tileY="3502" />
 		<bank tileX="3097" tileY="3496" />
 	</location>
 	<location>
-		<name>Neitiznot</name>
+		<name>Port Phasmatys (Members)</name>
 		<furnace tileX="3110" tileY="3502" />
 		<bank tileX="3097" tileY="3496" />
 	</location>
 	<location>
-		<name>Port Phasmatys</name>
+		<name>Shilo Village (Members)</name>
 		<furnace tileX="3110" tileY="3502" />
 		<bank tileX="3097" tileY="3496" />
 	</location>
 	<location>
-		<name>Shilo Village</name>
+		<name>The TzHaar (Members)</name>
 		<furnace tileX="3110" tileY="3502" />
 		<bank tileX="3097" tileY="3496" />
 	</location>
 	<location>
-		<name>The TzHaar</name>
-		<furnace tileX="3110" tileY="3502" />
-		<bank tileX="3097" tileY="3496" />
-	</location>
-	<location>
-		<name>Zanaris</name>
+		<name>Zanaris (Members)</name>
 		<furnace tileX="3110" tileY="3502" />
 		<bank tileX="3097" tileY="3496" />
 	</location>

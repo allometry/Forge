@@ -20,9 +20,11 @@ import javax.swing.JLabel;
 import org.rsbot.event.events.ServerMessageEvent;
 import org.rsbot.event.listeners.PaintListener;
 import org.rsbot.event.listeners.ServerMessageListener;
+import org.rsbot.script.Calculations;
 import org.rsbot.script.Script;
 import org.rsbot.script.ScriptManifest;
 import org.rsbot.script.wrappers.RSInterfaceChild;
+import org.rsbot.script.wrappers.RSObject;
 import org.rsbot.script.wrappers.RSTile;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -47,6 +49,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
 				"</body>" +
 				"</html>")
 public class Forge extends Script implements PaintListener, ServerMessageListener {
+	private boolean isVerbose = true;
 	private Bar bar;
 	private Bars bars = new Bars();
 	private Location location;
@@ -73,7 +76,7 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 		ForgeGUI forgeGUI = new ForgeGUI(bars.bars.toArray(), locations.locations.toArray());
 		forgeGUI.setVisible(true);
 		
-		while(!forgeGUI.didStart) {}
+		while(forgeGUI.isVisible()) { wait(1); }
 		
 		if(forgeGUI.didStart) {
 			bar = (Bar)forgeGUI.barsComboBox.getSelectedItem();
@@ -85,10 +88,81 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 		}
 	}
 	
+	private RSObject furnace = null;
+	private RSTile[] currentPath = null;
+	private long timeoutMillis;
+	private int enterAmountParentID = 752;
+	
+	private long setTimeout(int seconds) {
+		return System.currentTimeMillis() + (seconds * 1000);
+	}
+	
+	private boolean isTimedOut() {
+		return (System.currentTimeMillis() > timeoutMillis);
+	}
+	
 	@Override
 	public int loop() {
 		if(isInventoryFull() && !inventoryContains(bar.getID())) {
-			//TODO goto furnace and smelt...
+			verbose("Inventory is full and doesn't contain any bars...");
+			if(!bar.getBarInterface().isValid()) {
+				verbose("Smelt interface isn't yet valid...");
+				if(!Calculations.onScreen(Calculations.tileToScreen(location.getFurnaceLocation()))) {
+					verbose("Furnace isn't yet on screen...");
+					if(currentPath == null) {
+						verbose("Generating path to furnace...");
+						walkTo(location.getFurnaceLocation());
+					}
+						
+						verbose("Walking current path...");
+						walkPathMM(currentPath);
+						if(!Calculations.onScreen(Calculations.tileToScreen(location.getFurnaceLocation())))
+							return random(2700, 3500);
+						else
+							return 1;
+				} else {
+					verbose("Furnace is on screen...");
+					currentPath = null;
+					furnace = getObjectAt(location.getFurnaceLocation());
+					
+					if(furnace != null) {
+						verbose("Notice! [command: smelt][object: furnace]");
+						atObject(furnace, "Smelt");
+						setTimeout(5);
+						
+						do
+							wait(1);
+						while(!bar.getBarInterface().isValid() || isTimedOut());
+						
+						return 1;
+					}
+				}
+			} else {
+				verbose("Smelt interface is valid...");
+				setTimeout(10);
+				do {
+					verbose("Notice! [command: smelt x][object: bar child interface]");
+					atInterface(bar.getBarInterface(), "Smelt X");
+					if(!getInterface(enterAmountParentID).isValid()) wait(random(2000, 2500));
+				} while(!getInterface(enterAmountParentID).isValid() || isTimedOut());
+				
+				if(isTimedOut()) return 1;
+				
+				verbose("Sending random number to smelt as x...");
+				sendText("" + random(28,random(45, 65)), true);
+				
+				setTimeout(5);
+				do
+					wait(1);
+				while(getMyPlayer().getAnimation() < 0 || isTimedOut());
+				
+				if(isTimedOut()) return 1;
+				
+				setTimeout(5);
+				do {
+					if(getMyPlayer().getAnimation() > 0) setTimeout(5);
+				} while(isTimedOut());
+			}
 		} else {
 			//TODO goto bank and bank...
 		}
@@ -110,6 +184,15 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 	public void onRepaint(Graphics g2) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/**
+	 * Verbose method is a log wrapper that successfully executes if the ifVerbose variable is true.
+	 *
+	 * @since 0.1
+	 */
+	private void verbose(String message) {
+		if(isVerbose) log.info(message);
 	}
 	
 	/**
@@ -240,12 +323,7 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 		public ForgeGUI(Object[] bars, Object[] locations) {
 			initComponents(bars, locations);
 		}
-
-		private void startButtonActionPerformed(ActionEvent e) {
-			didStart = true;
-			this.setVisible(false);
-		}
-
+		
 		private void initComponents(Object[] bars, Object[] locations) {
 			barsLabel = new JLabel();
 			barsComboBox = new JComboBox(bars);
@@ -273,7 +351,8 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 			startButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					startButtonActionPerformed(e);
+					didStart = true;
+					setVisible(false);
 				}
 			});
 			contentPane.add(startButton);
