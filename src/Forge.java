@@ -50,13 +50,21 @@ import org.xml.sax.helpers.XMLReaderFactory;
 				"</html>")
 public class Forge extends Script implements PaintListener, ServerMessageListener {
 	private boolean isVerbose = true;
+	private int enterAmountParentID = 752;
+	private long timeoutMillis;
 	private Bar bar;
 	private Bars bars = new Bars();
 	private Location location;
 	private Locations locations = new Locations();
+	private RSObject furnace = null;
+	private RSTile[] currentPath = null;
 	private String barXMLLocation = "http://github.com/allometry/Forge/raw/master/bars.xml";
 	private String locationXMLLocation = "http://github.com/allometry/Forge/raw/master/locations.xml";
 	private XMLReader barReader, locationReader;
+	
+	private boolean isTimedOut() {
+		return (System.currentTimeMillis() > timeoutMillis);
+	}
 	
 	@Override
 	public boolean onStart(Map<String,String> args) {
@@ -86,19 +94,6 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 		} else {
 			return false;
 		}
-	}
-	
-	private RSObject furnace = null;
-	private RSTile[] currentPath = null;
-	private long timeoutMillis;
-	private int enterAmountParentID = 752;
-	
-	private long setTimeout(int seconds) {
-		return System.currentTimeMillis() + (seconds * 1000);
-	}
-	
-	private boolean isTimedOut() {
-		return (System.currentTimeMillis() > timeoutMillis);
 	}
 	
 	@Override
@@ -180,6 +175,10 @@ public class Forge extends Script implements PaintListener, ServerMessageListene
 		}
 		
 		return 1;
+	}
+	
+	private long setTimeout(int seconds) {
+		return System.currentTimeMillis() + (seconds * 1000);
 	}
 	
 	@Override
